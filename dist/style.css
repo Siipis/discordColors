@@ -1,0 +1,59 @@
+html, body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.config__inner {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 4em;
+}
+
+.config label {
+    display: block;
+    font-weight: bold;
+}
+
+.config .input {
+    margin-bottom: 1em;
+}
+
+.config .input input {
+    padding: 0.75em 1em;
+    border: 1px solid #ccc;
+    border-radius: 3%;
+}
+
+.light {
+    color: #2C2F33;
+}
+
+.dark {
+    color: #e9e9ea;
+}
+
+.grid {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.grid > div {
+    padding: 4em 6em;
+    flex: 1;
+}
+
+.message {
+    margin-bottom: 1em;
+}
+
+.message--name {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.message--text {
+    margin-top: 0;
+}
