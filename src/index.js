@@ -46,7 +46,7 @@ new Vue({
 
             return colors.map((c) => {
                 return this.adjust(c).hex()
-            })
+            }).filter((v, i, a) => a.indexOf(v) === i)
         }
     },
 
