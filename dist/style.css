@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
     overflow-y: scroll;
 }
@@ -9,10 +13,26 @@ html, body {
     line-height: 1.4;
 }
 
+@media (max-width: 1080px) {
+    .grid > .config {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+}
+
 .config__inner {
     position: sticky;
     position: -webkit-sticky;
     top: 4em;
+}
+
+@media (max-width: 1080px) {
+    .config__inner {
+        position: inherit;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
 }
 
 .config label {
@@ -24,10 +44,19 @@ html, body {
     margin-bottom: 1em;
 }
 
+@media (max-width: 1080px) {
+    .config .input {
+        min-width: calc(33% - 2em);
+        margin: 1em 0.25em;
+    }
+}
+
 .config .input input {
     padding: 0.75em 1em;
     border: 1px solid #ccc;
-    border-radius: 3%;
+    border-radius: 3px;
+    width: 100%;
+    max-width: 18em;
 }
 
 .light {
@@ -44,9 +73,24 @@ html, body {
     min-height: 100vh;
 }
 
+@media (max-width: 1080px) {
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: max-content;
+    }
+}
+
 .grid > div {
     padding: 4em 6em;
     flex: 1;
+}
+
+@media (max-width: 1080px) {
+    .grid > div {
+        padding: 2em 3em;
+        flex: unset;
+    }
 }
 
 .message {
