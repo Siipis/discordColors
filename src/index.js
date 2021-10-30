@@ -12,7 +12,7 @@ new Vue({
             gray_count: 2,
 
             light: Color("#ffffff"),
-            dark: Color("#2f3136"),
+            dark: Color("#36393f"),
 
             light_contrast: 2,
             dark_contrast: 3,
