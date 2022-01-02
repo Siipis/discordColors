@@ -10,7 +10,11 @@
 <div id="app" class="grid">
     <div class="config">
         <div class="config__inner">
-            <div class="input">
+            <label class="checkbox">
+                Include AMOLED <input type="checkbox" v-model="include_amoled">
+            </label>
+
+            <div class="input half">
                 <label>Colors:</label>
                 <input type="number" v-model="color_count" max="20" min="1">
             </div>
@@ -25,19 +29,19 @@
                 <input type="number" v-model="lum_count" max="3" min="1">
             </div>
 
-            <div class="input">
+            <div class="input half">
                 <label>Grays:</label>
                 <input type="number" v-model="gray_count" max="3" min="0">
             </div>
 
             <div class="input">
                 <label>Contrast (light):</label>
-                <input type="number" v-model="light_contrast" step="0.1" max="5" min="1.5">
+                <input type="number" v-model="light_contrast" step="0.1" max="20" min="1.5">
             </div>
 
             <div class="input">
                 <label>Contrast (dark):</label>
-                <input type="number" v-model="dark_contrast" step="0.1" max="5" min="2">
+                <input type="number" v-model="dark_contrast" step="0.1" max="20" min="1.5">
             </div>
         </div>
     </div>
@@ -46,6 +50,9 @@
     </div>
     <div class="dark" :style="{ background: dark }">
         <message v-for="(color, i) in colors" :color="color" :key="i + '_dark'"/>
+    </div>
+    <div class="amoled" v-if="include_amoled" :style="{ background: amoled }">
+        <message v-for="(color, i) in colors" :color="color" :key="i + '_amoled'"/>
     </div>
 </div>
 

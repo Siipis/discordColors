@@ -16,7 +16,14 @@ html, body {
 @media (max-width: 1080px) {
     .grid > .config {
         grid-column-start: 1;
-        grid-column-end: 3;
+        grid-column-end: 4;
+    }
+}
+
+@media (max-width: 732px) {
+    .light, .dark, .amoled {
+        grid-column-start: 1;
+        grid-column-end: 4;
     }
 }
 
@@ -40,7 +47,14 @@ html, body {
     font-weight: bold;
 }
 
-.config .input {
+.config input {
+    margin-bottom: 1em;
+}
+
+.config .checkbox {
+    text-align: center;
+    flex-basis: 100%;
+    width: 100%;
     margin-bottom: 1em;
 }
 
@@ -56,14 +70,13 @@ html, body {
     border: 1px solid #ccc;
     border-radius: 3px;
     width: 100%;
-    max-width: 18em;
 }
 
 .light {
     color: #2C2F33;
 }
 
-.dark {
+.dark, .amoled {
     color: #e9e9ea;
 }
 
@@ -76,7 +89,7 @@ html, body {
 @media (max-width: 1080px) {
     .grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: max-content;
     }
 }

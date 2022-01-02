@@ -6,6 +6,8 @@ new Vue({
 
     data() {
         return {
+            include_amoled: false,
+
             color_count: 8,
             shade_count: 1,
             lum_count: 1,
@@ -13,6 +15,7 @@ new Vue({
 
             light: Color("#ffffff"),
             dark: Color("#36393f"),
+            amoled: Color("#000000"),
 
             light_contrast: 2,
             dark_contrast: 3,
@@ -59,6 +62,14 @@ new Vue({
             while (this.light.contrast(c) < this.light_contrast && darkened < steps) {
                 c = c.darken(by)
                 darkened++
+            }
+
+            if (this.include_amoled) {
+                lightened = 0
+                while (this.amoled.contrast(c) < this.dark_contrast && lightened < steps) {
+                    c = c.lighten(by)
+                    lightened++
+                }
             }
 
             lightened = 0
