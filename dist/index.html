@@ -7,32 +7,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="app" class="grid">
+<div id="app" class="grid" :class="{include_amoled}">
     <div class="config">
         <div class="config__inner">
             <label class="checkbox">
                 Include AMOLED <input type="checkbox" v-model="include_amoled">
             </label>
 
-            <div class="input half">
-                <label>Colors:</label>
-                <input type="number" v-model="color_count" max="20" min="1">
-            </div>
+            <label class="mode">
+                Color mode:
+                <select v-model="color_mode">
+                    <option value="hex">Hex Colors</option>
+                    <option value="web">Web Colors</option>
+                </select>
+            </label>
 
-            <div class="input">
-                <label>Shades:</label>
-                <input type="number" v-model="shade_count" max="3" min="1">
-            </div>
+            <template v-if="color_mode === 'hex'">
+                <div class="input half">
+                    <label>Colors:</label>
+                    <input type="number" v-model="color_count" max="20" min="1">
+                </div>
 
-            <div class="input">
-                <label>Luminosities:</label>
-                <input type="number" v-model="lum_count" max="3" min="1">
-            </div>
+                <div class="input">
+                    <label>Shades:</label>
+                    <input type="number" v-model="shade_count" max="3" min="1">
+                </div>
 
-            <div class="input half">
-                <label>Grays:</label>
-                <input type="number" v-model="gray_count" max="3" min="0">
-            </div>
+                <div class="input">
+                    <label>Luminosities:</label>
+                    <input type="number" v-model="lum_count" max="3" min="1">
+                </div>
+
+                <div class="input half">
+                    <label>Grays:</label>
+                    <input type="number" v-model="gray_count" max="3" min="0">
+                </div>
+            </template>
 
             <div class="input">
                 <label>Contrast (light):</label>

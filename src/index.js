@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const Color = require('color')
+const {color_names} = require('./color_names')
 
 new Vue({
     el: "#app",
@@ -7,6 +8,7 @@ new Vue({
     data() {
         return {
             include_amoled: false,
+            color_mode: 'hex',
 
             color_count: 8,
             shade_count: 1,
@@ -24,6 +26,14 @@ new Vue({
 
     computed: {
         colors() {
+            if (this.color_mode === 'hex') {
+                return this.hexColors
+            } else {
+                return this.namedColors
+            }
+        },
+
+        hexColors() {
             const colors = []
 
             const shades = _.range(100, 0, -100 / this.shade_count)
@@ -50,6 +60,28 @@ new Vue({
             return colors.map((c) => {
                 return this.adjust(c).hex()
             }).filter((v, i, a) => a.indexOf(v) === i)
+        },
+
+        namedColors() {
+            return color_names.filter(name => {
+                const c = Color(name.toLowerCase())
+
+                if (this.light.contrast(c) < this.light_contrast) {
+                    return false
+                }
+
+                if (this.dark.contrast(c) < this.dark_contrast) {
+                    return false
+                }
+
+                if (this.include_amoled) {
+                    if (this.amoled.contrast(c) < this.dark_contrast) {
+                        return false
+                    }
+                }
+
+                return true
+            })
         }
     },
 

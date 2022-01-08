@@ -58,6 +58,11 @@ html, body {
     margin-bottom: 1em;
 }
 
+.config .mode {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
 @media (max-width: 1080px) {
     .config .input {
         min-width: calc(33% - 2em);
@@ -65,11 +70,18 @@ html, body {
     }
 }
 
-.config .input input {
+.config input {
     padding: 0.75em 1em;
     border: 1px solid #ccc;
     border-radius: 3px;
     width: 100%;
+}
+
+.config select {
+    padding: 0.5em 1em;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 3px;
 }
 
 .light {
@@ -89,8 +101,12 @@ html, body {
 @media (max-width: 1080px) {
     .grid {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
         grid-template-rows: max-content;
+    }
+
+    .grid.include_amoled {
+        grid-template-columns: 1fr 1fr 1fr;
     }
 }
 
