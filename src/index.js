@@ -143,7 +143,57 @@ new Vue({
     components: {
         'message': {
             template: "#message-template",
-            props: ['color']
+            props: ['color'],
+
+            computed: {
+                colorLabel() {
+                    const c = this.color
+
+                    if (this.$root.color_mode === 'web') {
+                        return this.capitalCase(c)
+                    }
+
+                    let closest = color_names[0]
+                    let closest_similarity = 1000
+
+                    for (let c2 of color_names) {
+                        const similarity = this.similarity(c, c2.toLowerCase())
+
+                        if (similarity < closest_similarity) {
+                            closest = c2
+                            closest_similarity = similarity
+                        }
+                    }
+
+                    return this.capitalCase(closest)
+                },
+
+                colorName() {
+                    if (this.$root.color_mode === 'web') {
+                        return this.capitalCase(this.color)
+                    }
+
+                    return this.color
+                }
+            },
+
+            methods: {
+                similarity(c1, c2) {
+                    c1 = Color(c1)
+                    c2 = Color(c2)
+
+                    const h = Math.abs(c1.hue() - c2.hue())
+                    const s = Math.abs(c1.saturationl() - c2.saturationl())
+                    const l = Math.abs(c1.lightness() - c2.lightness())
+
+                    return h/2 + s + l*1.1
+                },
+
+                capitalCase(string) {
+                    const result = string.replace(/([A-Z])/g, " $1");
+                    return result.charAt(0).toUpperCase() + result.slice(1);
+                }
+            }
         }
     },
 })

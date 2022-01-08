@@ -24,51 +24,51 @@
 
             <template v-if="color_mode === 'hex'">
                 <div class="input half">
-                    <label>Colors:</label>
-                    <input type="number" v-model="color_count" max="20" min="1">
+                    <label for="color_count">Colors:</label>
+                    <input id="color_count" type="number" v-model="color_count" max="20" min="1">
                 </div>
 
                 <div class="input">
-                    <label>Shades:</label>
-                    <input type="number" v-model="shade_count" max="3" min="1">
+                    <label for="shade_count">Shades:</label>
+                    <input id="shade_count" type="number" v-model="shade_count" max="3" min="1">
                 </div>
 
                 <div class="input">
-                    <label>Luminosities:</label>
-                    <input type="number" v-model="lum_count" max="3" min="1">
+                    <label for="lum_count">Luminosities:</label>
+                    <input id="lum_count" type="number" v-model="lum_count" max="3" min="1">
                 </div>
 
                 <div class="input half">
-                    <label>Grays:</label>
-                    <input type="number" v-model="gray_count" max="3" min="0">
+                    <label for="gray_count">Grays:</label>
+                    <input id="gray_count" type="number" v-model="gray_count" max="3" min="0">
                 </div>
             </template>
 
             <div class="input">
-                <label>Contrast (light):</label>
-                <input type="number" v-model="light_contrast" step="0.1" max="20" min="1.5">
+                <label for="light_contrast">Contrast (light):</label>
+                <input id="light_contrast" type="number" v-model="light_contrast" step="0.1" max="20" min="1.5">
             </div>
 
             <div class="input">
-                <label>Contrast (dark):</label>
-                <input type="number" v-model="dark_contrast" step="0.1" max="20" min="1.5">
+                <label for="dark_contrast">Contrast (dark):</label>
+                <input id="dark_contrast" type="number" v-model="dark_contrast" step="0.1" max="20" min="1.5">
             </div>
         </div>
     </div>
     <div class="light" :style="{ background: light }">
-        <message v-for="(color, i) in colors" :color="color" :key="i + '_light'"/>
+        <message v-for="(color, i) in colors" :color="color" :key="i + '_light'"></message>
     </div>
     <div class="dark" :style="{ background: dark }">
-        <message v-for="(color, i) in colors" :color="color" :key="i + '_dark'"/>
+        <message v-for="(color, i) in colors" :color="color" :key="i + '_dark'"></message>
     </div>
     <div class="amoled" v-if="include_amoled" :style="{ background: amoled }">
-        <message v-for="(color, i) in colors" :color="color" :key="i + '_amoled'"/>
+        <message v-for="(color, i) in colors" :color="color" :key="i + '_amoled'"></message>
     </div>
 </div>
 
 <script type="text/x-template" id="message-template">
     <div class="message">
-        <p class="message--name" :style="{ color }">Name goes here | {{ color }}</p>
+        <p class="message--name" :style="{ color }" :title="colorLabel">Name goes here | {{ colorName }}</p>
         <p class="message--text">This is some message. Look, pretty!</p>
     </div>
 </script>
