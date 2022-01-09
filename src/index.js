@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const Color = require('color')
 const {color_names} = require('./color_names')
+const {hues, saturations, luminances} = require('./color_labels')
 
 new Vue({
     el: "#app",
@@ -154,15 +155,19 @@ new Vue({
                     }
 
                     let closest = color_names[0]
-                    let closest_similarity = 1000
+                    let closest_diff = 1000
 
                     for (let c2 of color_names) {
-                        const similarity = this.similarity(c, c2.toLowerCase())
+                        const diff = this.diff(c, c2.toLowerCase())
 
-                        if (similarity < closest_similarity) {
+                        if (diff < closest_diff) {
                             closest = c2
-                            closest_similarity = similarity
+                            closest_diff = diff
                         }
+                    }
+
+                    if (closest_diff >= 13.5) {
+                        return this.improvise()
                     }
 
                     return this.capitalCase(closest)
@@ -178,20 +183,53 @@ new Vue({
             },
 
             methods: {
-                similarity(c1, c2) {
+                diff(c1, c2) {
                     c1 = Color(c1)
                     c2 = Color(c2)
 
-                    const h = Math.abs(c1.hue() - c2.hue())
-                    const s = Math.abs(c1.saturationl() - c2.saturationl())
-                    const l = Math.abs(c1.lightness() - c2.lightness())
+                    let h = Math.abs(c1.hue() - c2.hue())
+                    let s = Math.abs(c1.saturationv() - c2.saturationv())
+                    let l = Math.abs(c1.luminosity() - c2.luminosity()) * 100
 
-                    return h/2 + s + l*1.1
+                    return (h*2.8 + s + l*2) / 3
                 },
 
                 capitalCase(string) {
                     const result = string.replace(/([A-Z])/g, " $1");
                     return result.charAt(0).toUpperCase() + result.slice(1);
+                },
+
+                improvise() {
+                    lum_name = this.closest(luminances, "luminosity")
+                    sat_name = this.closest(saturations, "saturationv")
+                    hue_name = this.closest(hues, "hue")
+
+                    return this.capitalCase(lum_name + sat_name + hue_name)
+                },
+
+                closest(values, func) {
+                    const c = Color(this.color)
+
+                    if (values === hues && c.saturationv() < 5) {
+                        return "Gray"
+                    }
+
+                    if (values === saturations && c.saturationv() < 5) {
+                        return ""
+                    }
+
+                    let closest = ""
+                    let closest_diff = 100
+                    for (const [key, val] of Object.entries(values)) {
+                        const diff = Math.abs(val - c[func]())
+
+                        if (diff < closest_diff) {
+                            closest = key
+                            closest_diff = diff
+                        }
+                    }
+
+                    return closest
                 }
             }
         }
